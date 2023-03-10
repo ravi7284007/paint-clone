@@ -1,3 +1,4 @@
+const BRUSH_TIME = 1500;
 const activeToolEl = document.getElementById('active-tool');
 const brushColorBtn = document.getElementById('brush-color');
 const brushIcon = document.getElementById('brush');
@@ -61,6 +62,7 @@ eraser.addEventListener('click', () => {
   currentSize = 50;
 });
 
+
 // Switch back to Brush
 function switchToBrush() {
   isEraser = false;
@@ -71,6 +73,10 @@ function switchToBrush() {
   currentSize = 10;
   brushSlider.value = 10;
   displayBrushSize();
+}
+
+function brushTimeSetTimeout(ms) {
+  setTimeout(switchToBrush, ms);
 }
 
 // Create Canvas
@@ -89,7 +95,7 @@ clearCanvasBtn.addEventListener('click', () => {
   drawnArray = [];
   // Active Tool
   activeToolEl.textContent = 'Canvas Cleared';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSetTimeout(BRUSH_TIME);
 });
 
 // Draw what is stored in DrawnArray
@@ -173,7 +179,7 @@ saveStorageBtn.addEventListener('click', () => {
   localStorage.setItem('savedCanvas', JSON.stringify(drawnArray))
   // Active Tool
   activeToolEl.textContent = 'Canvas Saved';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSetTimeout(BRUSH_TIME);
 });
 
 // Load from Local Storage
@@ -183,10 +189,10 @@ loadStorageBtn.addEventListener('click', () => {
     restoreCanvas();
     // Active Tool
     activeToolEl.textContent = 'Canvas Loaded';
-    setTimeout(switchToBrush, 1500);
+    brushTimeSetTimeout(BRUSH_TIME);
   } else {
     activeToolEl.textContent = 'No Canvas Found';
-    setTimeout(switchToBrush, 1500);
+    brushTimeSetTimeout(BRUSH_TIME);
   }
 
 });
@@ -196,7 +202,7 @@ clearStorageBtn.addEventListener('click', () => {
   localStorage.removeItem('savedCanvas');
   // Active Tool
   activeToolEl.textContent = 'Local Storage Cleared';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSetTimeout(BRUSH_TIME);
 });
 
 // Download Image
@@ -205,7 +211,7 @@ downloadBtn.addEventListener('click', () => {
   downloadBtn.download = 'paint-example.jpeg'
   // Active Tool
   activeToolEl.textContent = 'Image File Saved';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSetTimeout(BRUSH_TIME);
 });
 
 // // Event Listener
